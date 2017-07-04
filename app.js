@@ -29,10 +29,29 @@ server.post('/api/messages', connector.listen());
 // Bots Dialogs
 //=========================================================
 
+bot.on('conversationUpdate', function (message) {
+    console.log("Called Conversation updated");
+    if (message.membersAdded && message.membersAdded.length > 0) {
+        var isSelf = false;
+        var membersAdded = message.membersAdded
+            .map(function (m) {
+                isSelf = m.id === message.address.bot.id;
+                return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
+            })
+            .join(', ');
+        if (!isSelf) {
+            console.log("not self");
+            bot.send(new builder.Message()
+                .address(message.address)
+                .text('Welcome ' + membersAdded + "! How can i help you?"));
+            bot.beginDialog(message.address,'/');
+        }
+    }
+});
+
 // Root dialog for entry point in application
 bot.dialog('/', [
     function (session) {
-
         // Changes suggested by rakhi for demo 04-05-2017
         builder.Prompts.text(session,"Hi Sagar! How can i help you?");
     },
