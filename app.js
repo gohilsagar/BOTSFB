@@ -54,6 +54,12 @@ bot.dialog('/', [
     function (session) {
         // Changes suggested by rakhi for demo 04-05-2017
         builder.Prompts.text(session,"Hi Sagar! How can i help you?");
+
+        var msg = new builder.Message(session)
+            .speak('This is the text that will be spoken.')
+            .inputHint("Tell me your Name");
+        session.send(msg);
+
     },
     function (session,results) {
         session.send("You Said : " + results.response);
