@@ -57,7 +57,7 @@ bot.dialog('/', [
 
         var msg = new builder.Message(session)
             .speak('This is the text that will be spoken.')
-            .inputHint("Tell me your Name");
+            .inputHint(builder.InputHint.acceptingInput);
         session.send(msg);
 
     },
