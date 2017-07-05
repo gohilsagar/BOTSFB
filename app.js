@@ -53,8 +53,8 @@ bot.on('conversationUpdate', function (message) {
 bot.dialog('/', [
     function (session) {
         // Changes suggested by rakhi for demo 04-05-2017
-        builder.Prompts.text(session,"Hi Sagar! How can i help you?");
-
+        builder.Prompts.text(session, "Hi Sagar! How can i help you?");
+        session.send(JSON.stringify(session));
         var msg = new builder.Message(session)
             .speak('This is the text that will be spoken.')
             .inputHint(builder.InputHint.acceptingInput);
